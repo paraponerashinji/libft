@@ -3,26 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 17:10:02 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/14 17:38:46 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/23 11:07:22 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/29 13:30:57 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_bzero(void *s, size_t n)
+void	*ft_bzero(void *ptr, int size)
 {
-	size_t			i;
-	unsigned char	*suc;
+	unsigned char	*ptr2;
+	int				i;
 
 	i = 0;
-	suc = (unsigned char *)s;
-	while (i < n)
+	ptr2 = (unsigned char *) ptr;
+	while (i < size)
 	{
-		suc[i] = 0;
+		ptr2[i] = 0;
 		i++;
 	}
-	s = suc;
+	return (ptr);
 }
+/*
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+
+    int array [] = { 54, 85, 20, 63, 21 };
+    size_t size = sizeof( int ) * 4;
+    int length;
+
+    for( length=0; length<5; length++) {
+        printf( "%d ", array[ length ] );
+    }
+    printf( "\n" );
+
+    ft_bzero( array, size );
+
+    for( length=0; length<5; length++) {
+        printf( "%d ", array[ length ] );
+    }
+    printf( "\n" );
+    
+    return 0;
+}
+
+int main() {
+
+    char array [] = { "reifeuier" };
+    int length;
+
+    for( length=0; length<9; length++) {
+        printf( "%c ", array[ length ] );
+    }
+    printf( "\n" );
+//	printf("size : %zu", size);
+	ft_bzero( array, 4 );
+
+    for( length=0; length<9; length++) {
+        printf( "%c ", array[ length ] );
+    }
+    printf( "\n" );
+    
+    return 0;
+}*/

@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 14:25:42 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/14 15:45:09 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/22 14:23:32 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/31 11:59:51 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strrchr(const char *s, int c)
+#include "libft.h"
+
+char	*ft_strrchr(char *str, int searchedChar)
 {
-	int		i;
-	char	*ptr;
+	int	i;
 
 	i = 0;
-	ptr = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			ptr = (char *)(s + i);
+	while (str[i] != '\0')
 		i++;
+	while (i >= 0)
+	{
+		if (str[i] == (char)searchedChar)
+			return (&str[i]);
+		i--;
 	}
-	if (s[i] == c)
-		ptr = (char *)(s + i);
-	return (ptr);
+	return (0);
 }

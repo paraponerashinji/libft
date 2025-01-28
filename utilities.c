@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:34:56 by aharder           #+#    #+#             */
-/*   Updated: 2024/11/04 10:46:50 by aharder          ###   ########.fr       */
+/*   Created: 2024/11/04 16:12:43 by aharder           #+#    #+#             */
+/*   Updated: 2024/11/04 16:12:59 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int	getargcount(const char *str)
 {
-	char	*output;
-	int		i;
+	int	i;
+	int	count;
 
-	if (!s)
-		return (NULL);
+	count = 0;
 	i = 0;
-	output = malloc ((ft_strlen(s) + 1) * sizeof (char));
-	while (s[i] != '\0')
+	while (str[i] != '\0')
 	{
-		output[i] = f(i, s[i]);
+		if (str[i] == '%')
+		{
+			count++;
+			i++;
+		}
 		i++;
 	}
-	output[i] = '\0';
-	return (output);
+	return (count);
+}
+
+int	findlength(unsigned int n)
+{
+	int	length;
+
+	length = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n /= 10;
+		length++;
+	}
+	return (length);
 }

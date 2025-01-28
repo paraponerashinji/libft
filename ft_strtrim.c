@@ -3,46 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 14:54:46 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/23 10:40:53 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/23 14:00:06 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/31 11:42:44 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_in_set(char c, const char *set)
+int	anothercustomstrlen(const char *str)
 {
-	while (*set)
-		if (c == *set++)
-			return (0);
-	return (1);
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+int	issetchar(char c, const char *set)
 {
-	size_t	start;
-	size_t	end;
-	char	*rtn;
+	int	i;
+	int	setlen;
 
-	if (!s1)
-		return (NULL);
-	if (!set)
-		return (ft_strdup(s1));
-	start = 0;
-	end = ft_strlen(s1);
-	while (is_in_set(s1[start], set) == 0)
-		start++;
-	if (start == ft_strlen(s1))
+	i = 0;
+	setlen = anothercustomstrlen(set);
+	while (i < setlen)
 	{
-		if (!(rtn = ft_strdup("")))
-			return (NULL);
-		else
-			return (rtn);
+		if (c == set[i])
+			return (1);
+		i++;
 	}
-	while (is_in_set(s1[end - 1], set) == 0)
-		end--;
-	rtn = ft_substr(s1, start, end - start);
-	return (rtn);
+	return (0);
+}
+
+int	customstrlen(const char *str, const char *set)
+{
+	int	i;
+	int	y;
+	int	count;
+
+	i = 0;
+	while (str[i] && issetchar(str[i], set))
+		i++;
+	y = anothercustomstrlen(str) - 1;
+	while (y >= i && issetchar(str[y], set))
+		y--;
+	count = y - i + 1;
+	if (count < 1)
+		return (0);
+	return (count);
+}
+
+char	*ft_strtrim(const char *str, const char *set)
+{
+	char	*output;
+	int		i;
+	int		decalage;
+
+	i = 0;
+	if (!str || !set)
+		return (NULL);
+	output = malloc((customstrlen(str, set) + 1) * sizeof(char));
+	if (!output)
+		return (NULL);
+	decalage = 0;
+	while (issetchar(str[decalage], set) == 1)
+		decalage++;
+	while (i < customstrlen(str, set))
+	{
+		output[i] = str[i + decalage];
+		i++;
+	}
+	output[i] = '\0';
+	return (output);
 }

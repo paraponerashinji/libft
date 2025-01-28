@@ -3,33 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 14:05:40 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/23 10:54:58 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/22 14:56:19 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/30 13:04:16 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+unsigned int	customstrlen(const char *str)
 {
-	char	*rtn;
-	size_t	i;
+	unsigned int	i;
 
-	if (!s)
-		return (NULL);
-	if ((size_t)start > ft_strlen(s))
-		return (ft_strdup(""));
-	rtn = malloc(sizeof(char) * (len + 1));
 	i = 0;
-	if (!rtn)
-		return (0);
-	while (i < len)
+	while (str[i] != '\0')
 	{
-		rtn[i] = *(s + start + i);
 		i++;
 	}
-	rtn[i] = '\0';
-	return (rtn);
+	return (i);
+}
+
+char	*ft_substr(const char *str, unsigned int start, size_t length)
+{
+	unsigned int	i;
+	unsigned int	y;
+	unsigned int	strlength;
+	char			*dest;
+
+	y = 0;
+	strlength = customstrlen(str);
+	if (!str || start >= strlength)
+	{
+		dest = malloc(1 * sizeof(char));
+		dest[y] = '\0';
+		return (dest);
+	}
+	if (length > strlength - start)
+		length = strlength - start;
+	dest = malloc((length + 1) * sizeof(char));
+	i = start;
+	while (str[i] != '\0' && y < length)
+	{
+		dest[y] = str[i];
+		i++;
+		y++;
+	}
+	dest[y] = '\0';
+	return (dest);
 }

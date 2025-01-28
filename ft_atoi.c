@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <rchallie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 15:54:34 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/16 17:50:37 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/22 11:22:40 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/29 14:18:23 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,47 @@
 
 int	ft_atoi(const char *str)
 {
-	long	i;
-	long	nbr;
-	int		isneg;
+	int	output;
+	int	posneg;
 
-	i = 0;
-	nbr = 0;
-	isneg = 0;
-	while (str[i] != '\0' && (str[i] == 32 || str[i] == '\t' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
-		i++;
-	if (str[i] != '\0' && str[i] == '-')
+	output = 0;
+	posneg = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
+		posneg = posneg * -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
 	{
-		isneg = 1;
-		i++;
+		output = output * 10 + *str - '0';
+		str++;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] != '\0' && ft_isdigit(str[i]))
-		nbr = (nbr * 10) + (str[i++] - '0');
-	if (isneg == 1)
-		return (-nbr);
-	return (nbr);
+	return (output * posneg);
 }
+/*
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main( int argc, char * argv[] ) {
+
+    if ( argc == 1 ) {
+        printf( "Usage: %s intValue ...\n", argv[0] );
+        exit( EXIT_SUCCESS );
+    }
+    argc--;   argv++;
+
+    int sum = 0;
+
+    while ( argc != 0 ) {
+
+        sum += ft_atoi( *argv++ );
+        argc--;
+
+    }
+    printf( "La somme des valeurs saisies est de %d.\n", sum );
+
+    return EXIT_SUCCESS;
+}
+*/

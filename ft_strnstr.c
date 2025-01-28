@@ -3,35 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 16:13:35 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/08 16:42:01 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/22 14:34:28 by aharder           #+#    #+#             */
+/*   Updated: 2024/11/04 11:28:46 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+const char	*ft_strnstr(const char *str, const char *searchedStr, size_t n)
 {
-	size_t	i;
-	size_t	c;
-	size_t	n_len;
-	char	*hay;
+	size_t		i;
+	int			j;
+	int			ibuffer;
 
 	i = 0;
-	hay = (char *)haystack;
-	n_len = ft_strlen(needle);
-	if (n_len == 0 || haystack == needle)
-		return (hay);
-	while (hay[i] != '\0' && i < len)
+	if (searchedStr[i] == '\0')
+		return (str);
+	while (str[i] != '\0' && i < n)
 	{
-		c = 0;
-		while (hay[i + c] != '\0' && needle[c] != '\0'
-				&& hay[i + c] == needle[c] && i + c < len)
-			c++;
-		if (c == n_len)
-			return (hay + i);
+		j = 0;
+		if (searchedStr[j] == str[i])
+		{
+			ibuffer = i;
+			while (searchedStr[j] == str[i] && str[i] != '\0' && i < n)
+			{
+				j++;
+				i++;
+			}
+			if (searchedStr[j] == '\0')
+				return (&str[ibuffer]);
+			i = ibuffer;
+		}
 		i++;
 	}
 	return (0);

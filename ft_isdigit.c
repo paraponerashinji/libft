@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 15:36:50 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/07 15:38:43 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/22 11:38:39 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/22 11:41:01 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int c)
+#include "libft.h"
+
+int	ft_isdigit(char c)
 {
-	return (c >= 48 && c <= 57);
+	if (c < 48 || c > 57)
+		return (0);
+	return (1);
 }

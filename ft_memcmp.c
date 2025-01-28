@@ -3,29 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rchallie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aharder <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 12:24:59 by rchallie          #+#    #+#             */
-/*   Updated: 2019/10/14 16:58:55 by rchallie         ###   ########.fr       */
+/*   Created: 2024/10/23 13:38:35 by aharder           #+#    #+#             */
+/*   Updated: 2024/10/29 14:53:52 by aharder          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(void *ptr1, void *ptr2, int size)
 {
-	const unsigned char	*ss1;
-	const unsigned char	*ss2;
-	size_t				i;
+	unsigned char	*ptr3;
+	unsigned char	*ptr4;
+	int				i;
 
 	i = 0;
-	ss1 = (const unsigned char *)s1;
-	ss2 = (const unsigned char *)s2;
-	while (i < n)
+	ptr3 = (unsigned char *) ptr1;
+	ptr4 = (unsigned char *) ptr2;
+	while (i < size)
 	{
-		if (ss1[i] != ss2[i])
-			return (ss1[i] - ss2[i]);
+		if (ptr3[i] != ptr4[i])
+			return (ptr3[i] - ptr4[i]);
 		i++;
 	}
 	return (0);
 }
+/*
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+   char str1[] = "12345678901400345678";
+   char str2[] = "1234567";
+
+   int result = ft_memcmp(str2, str1, 10);
+
+   if (result < 0) {
+       printf("First is less than second.\n");
+   } else if (result == 0) {
+       printf("First is equal to second.\n");
+   } else {
+       printf("First is greater than second.\n");
+   }
+    return 0;
+}*/
